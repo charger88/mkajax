@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>jquery.mkajax.js - example</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="author" content="Mikhail Kelner" />
+		<meta name="viewport" content="width=1200">
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script type="text/javascript" src="../src/jquery.mkajax.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$('#link-1').mkajax();
+				$('#link-2').mkajax();
+				$('#link-3').mkajax({loadingAnimationTimeout: 1000});
+				$('#link-4').mkajax({loadingAnimationTimeout: 2000});
+				$('#link-5').mkajax();
+				$('#link-6').mkajax({
+					startLoadingAnimation: function(object){
+						$('body').addClass('loading');
+					},
+					stopLoadingAnimation: function(object,response){
+						$('body').removeClass('loading');
+					}
+				});
+				$('#link-7').mkajax();
+				$('#link-8').mkajax({
+					onRequestSuccessResponsePreparing: function(response){
+						return $('<span>' + response.toUpperCase() + '</span>').css('cursor','pointer').on('click',function(){
+							alert('Binded action!');
+						});;
+					}
+				});
+				$('#link-9').mkajax({removeObject: true});
+				$('#form-1').mkajax({resetForm: true});
+			});
+		</script>
+		<link rel="stylesheet" href="example.css" type="text/css" />
+		<link rel="stylesheet" href="../src/jquery.mkajax.css" type="text/css" />
+	</head>
+	<body>
+		<header>jquery.mkajax.js - example</header>
+		<section id="column-1">
+			<dl class="links">
+				<dt><a href="data.php?delay=0&amp;link=1#link-1-result" id="link-1">Get data as soon as possible</a></dt><dd id="link-1-result"></dd>
+				<dt><a href="data.php?delay=2&amp;link=2#link-2-result" id="link-2">Get data with server delay 2s</a></dt><dd id="link-2-result"></dd>
+				<dt><a href="data.php?delay=2&amp;link=3#link-3-result" id="link-3">Get data with server delay 2s and loading animation timeout 1s</a></dt><dd id="link-3-result"></dd>
+				<dt><a href="data.php?delay=1&amp;link=4#link-4-result" id="link-4">Get data with server delay 1s and loading animation timeout 2s</a></dt><dd id="link-4-result"></dd>
+				<dt><a href="data.php?delay=0&amp;link=5" id="link-5">Get data to default alert</a></dt><dd id="link-5-result"></dd>
+				<dt><a href="data.php?delay=2&amp;link=6#link-6-result" id="link-6">Get data with server delay 2s and custom loading animation</a></dt><dd id="link-6-result"></dd>
+				<dt><a href="data.php?delay=1&amp;link=7" data-result="dl.links dd" id="link-7">Get data with server delay 1s to all links result fields</a></dt><dd id="link-7-result"></dd>
+				<dt><a href="data.php?delay=0&amp;link=8#link-8-result" id="link-8">Get data and javascript processing of response data</a></dt><dd id="link-8-result"></dd>
+				<dt><a href="data.php?delay=0&amp;link=9#link-9-result" id="link-9">Get data and remove this link</a></dt><dd id="link-9-result"></dd>
+			</dl>
+		</section>
+		<section id="column-2">
+			<form action="data.php#form-1-result" method="post" id="form-1">
+				<div>
+					<label for="form-1-text-input">Text input</label>
+					<input type="text" name="input" id="form-1-input" value="" />
+				</div>
+				<div>
+					<label for="form-1-input-array-0">Input array [0]</label>
+					<input type="text" name="input-array[]" id="form-1-array-0" value="" />
+				</div>
+				<div>
+					<label for="form-1-input-array-1">Input array [1]</label>
+					<input type="text" name="input-array[]" id="form-1-array-1" value="" />
+				</div>
+				<div>
+					<label for="form-1-textarea">Text area</label>
+					<textarea rows="5" name="textarea" id="form-1-textarea"></textarea>
+				</div>
+				<div>
+					<label for="form-1-select">Regular select</label>
+					<select name="select-regular" id="form-1-select">
+						<option value="1st">Frist option</option>
+						<option value="2nd">Second option</option>
+						<option value="3rd">Third option</option>
+						<option value="4th">Fourth option</option>
+						<option value="5th">Fifth option</option>
+					</select>
+				</div>
+				<div>
+					<label for="form-1-select">Multiple select</label>
+					<select name="select-multiple" multiple="" id="form-1-select">
+						<option value="1st">Frist option</option>
+						<option value="2nd">Second option</option>
+						<option value="3rd">Third option</option>
+						<option value="4th">Fourth option</option>
+						<option value="5th">Fifth option</option>
+					</select>
+				</div>
+				<div style="margin-top: 20px;">
+					<label>Radio button</label>
+					<input type="radio" name="radio-button" value="1" />
+					<input type="radio" name="radio-button" value="2" />
+					<input type="radio" name="radio-button" value="3" />
+					<input type="radio" name="radio-button" value="4" />
+					<input type="radio" name="radio-button" value="5" />
+				</div>
+				<div>
+					<label for="form-1-checkbox">Checkbox</label>
+					<input type="checkbox" name="checkbox" id="form-1-checkbox" value="1" />
+				</div>
+				<button>Submit</button>
+				<div id="form-1-result"></div>
+			</form>
+		</section>
+		<div class="clear"></div>
+	</body>
+</html>

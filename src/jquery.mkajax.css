@@ -1,0 +1,12 @@
+.mkajax-loader-animation:after {
+	content: '...';
+}
+
+a.mkajax-binded {
+	text-decoration: none;
+	border-bottom: 1px dotted;
+}
+
+.mkajax-form-button-disabled {
+
+}
